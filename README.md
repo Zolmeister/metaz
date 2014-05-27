@@ -12,7 +12,7 @@ var metaz = require('metaz')
 // Invalidate require cache on each require to get the parent again
 delete require.cache[__filename]
 
-var meta = metaz.getParentExports(module.parent, './metalib')
+var meta = metaz.getExports(module.parent, metaz.getSource(module.parent), './metalib')
 
 // Do anything you want with the source,
 // e.g. parse the AST for interesting content

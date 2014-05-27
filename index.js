@@ -2,18 +2,18 @@
 /*eslint no-eval: 0, no-unused-vars: 0*/
 var fs = require('fs')
 module.exports = {
-  getParentExports: getParentExports,
+  getExports: getExports,
   getSource: getSource,
-  modifyExports: modifyExports
+  modifyExports: modifyExports,
+  evaluate: evaluate
 }
 
-function getParentExports(moduleParent, name) {
+function getExports(moduleParent, source, name) {
   var filePath = _getPath(moduleParent)
-  var source = getSource(moduleParent)
   var excluded = _excludeRequire(source, name)
   var pathed = _requirePaths(source, filePath)
 
-  return _evalSource(pathed).exports
+  return evaluate(pathed).exports
 }
 
 function getSource(moduleParent) {
@@ -38,7 +38,7 @@ function _requirePaths(source, filePath) {
                         'require(\'' + filePath + '$1\')')
 }
 
-function _evalSource(source) {
+function evaluate(source) {
   return (function () {
     var module = {
       exports: {}
@@ -50,64 +50,3 @@ function _evalSource(source) {
     return module
   })()
 }
-
-/*
-
-module.exports = Metaz
-function Metaz(moduleParent, metaFlag) {
-  this.moduleParent = moduleParent
-  this.metaFlag = metaFlag == undefined ? metaFlag : true
-}
-
-Metaz.prototype.source =
-
-Metaz.prototype.override = function override(source) {
-
-}
-
-
-
-function override(moduleParent, exports) {
-    moduleParent.exports = exports
-    return moduleParent
-}
-
-function updateExports() {
-  return {test: 'test'}
-}
-
-function parentSource(moduleParent) {
-  var source = fs.readFileSync(moduleParent.filename, 'utf-8')
-  return source
-}
-
-function removeRequire(source, name) {
-  var regexp = new RegExp('require\([\'"]' + name + '[\'"]\)')
-  return source.replace(regexp, '{}')
-}
-
-function absoluteRequires(source, path) {
-  return source.replace(/require\(['"](\..*)['"]\)/g, 'require(\'' + path + '$1\')')
-}
-
-function evalSource(source) {
-  return (function () {
-    var module = {
-      exports: {}
-    }
-
-    var exports = module.exports
-
-    eval(source)
-    return module
-  })()
-}
-
-module.exports = {
-  parentSource: parentSource,
-  removeRequire: removeRequire,
-  absoluteRequires: absoluteRequires,
-  evalSource: evalSource,
-  updateExports: updateExports,
-  override: override
-}*/
