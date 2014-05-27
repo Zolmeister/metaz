@@ -1,0 +1,18 @@
+[submodule "ZMonitor"]
+	path = ZMonitor
+	url = https://github.com/Zolmeister/ZMonitor.git
+[submodule "sprinkler"]
+	path = sprinkler
+	url = https://github.com/Zolmeister/sprinkler.git
+[submodule "websites"]
+	path = websites
+	url = git@bitbucket.org:Zolmeister/websites.git
+[submodule "js-solver"]
+	path = js-solver
+	url = https://github.com/Zolmeister/js-solver.git
+[submodule "Polish.js"]
+	path = Polish.js
+	url = https://github.com/Zolmeister/Polish.js.git
+[submodule "sails"]
+	path = sails
+	url = https://github.com/Zolmeister/sails.git
