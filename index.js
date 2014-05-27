@@ -2,21 +2,18 @@
 /*eslint no-eval: 0, no-unused-vars: 0*/
 var fs = require('fs')
 module.exports = {
-  getParentModule: getParentModule,
+  getParentExports: getParentExports,
   getSource: getSource,
   modifyExports: modifyExports
 }
 
-function getParentModule(moduleParent, name) {
+function getParentExports(moduleParent, name) {
   var filePath = _getPath(moduleParent)
   var source = getSource(moduleParent)
   var excluded = _excludeRequire(source, name)
   var pathed = _requirePaths(source, filePath)
 
-  return {
-    source: source,
-    exports: _evalSource(pathed).exports
-  }
+  return _evalSource(pathed).exports
 }
 
 function getSource(moduleParent) {
